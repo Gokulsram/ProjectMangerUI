@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="registerForm">
+        <div class="form-group">
+          <label>First Name:</label>
+          <input type="text" class="form-control" formControlName="FirstName" [ngClass]="{'is-invalid': submitted && f.FirstName.errors}" />
+          <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+            <div *ngIf="f.FirstName.errors.required">>> First Name is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Last Name:</label>
+          <input type="text" class="form-control" formControlName="LastName" [ngClass]="{'is-invalid': submitted && f.LastName.errors}" />
+          <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+            <div *ngIf="f.LastName.errors.required">>> Last Name is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Employee ID:</label>
+          <input type="text" class="form-control" (keypress)="numberOnly($event)" formControlName="EmployeeId"
+            [ngClass]="{'is-invalid':submitted && f.EmployeeId.errors}" />
+          <div *ngIf="submitted && f.EmployeeId.errors" class="invalid-feedback">
+            <div *ngIf="f.EmployeeId.errors.required">>> Employee ID is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="onSubmit()">{{buttonCaption}}</button>&nbsp;&nbsp;
+          <button class="btn btn-primary" (click)="Reset()">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="userCount>0">
+  <hr />
+  <div>
+    <input [(ngModel)]="searchText" placeholder="Search.." class="form-control"><br>
+    Sort : <button class="btn btn-primary" (click)="SortByUser('firstname');">First Name</button> &nbsp;&nbsp;
+    <button class="btn btn-primary" (click)="SortByUser('lastname')">Last Name</button>&nbsp;&nbsp;
+    <button class="btn btn-primary" (click)="SortByUser('employeeid')">Id</button>&nbsp;&nbsp;
+  </div>
+  <br>
+</div>
+
+<div class="container">
+  <ul class="list-group" *ngFor="let user of allUsers  | grdFilter: searchText">
+    <li class="list-group-item">
+      <div>
+        <span class="badge">{{user.FirstName}} <button class="btn btn-primary" (click)="editUser(user)">Edit</button></span>
+      </div>
+      <div> <span class="badge">{{user.LastName}} <button class="btn btn-primary" (click)="deleteUser(user.UserId)">Delete</button></span></div>
+      <div> <span class="badge">{{user.EmployeeId}}</span> </div>
+    </li>
+  </ul>
+</div>
+<div *ngIf="userCount==0" style="color: red; font-weight: bold">No Records Found</div>

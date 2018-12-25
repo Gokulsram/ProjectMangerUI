@@ -1,0 +1,63 @@
+/* .task-heading{
+    width: 80%;
+    float: right; 
+}
+.task-date{
+    width: 57%;
+    float: right;
+}
+.dot-line{
+    border-top:1px dotted #000;
+}
+.head-text{
+    line-height: 40px;
+}
+.edit-btn{
+    width: 100px;
+}
+.task-body-sec td, .task-body-sec th{
+    vertical-align: middle;
+}
+.task-head-sec th{
+    border: none;
+}
+.task-btn{
+    padding: 10px 15px;
+    color: #000;
+    border-radius: 4px;
+    box-shadow: 0px 0px 1px #ddd;
+}
+.add-task{
+    background: #ffc107;
+    color: #212529;
+}
+.view-task{
+    background: #17a2b8;
+    color: #fff;
+}
+.add-task:hover{
+    background: #ffd556; 
+    text-decoration: none;
+}
+.view-task:hover{
+    background: #66c7d6;
+    text-decoration: none;
+}
+.task-outer{
+    background: #f5f5f5;
+    padding: 25px 0 0;
+}
+.task-outer .search-task {
+    background: #6f6f6f;
+    color: #fff;
+}
+@media(max-width:1024px){
+    .task-heading, .task-date{
+        width:auto;
+    }
+}
+@media(max-width:565px){
+    .task-heading, .task-date{
+        width:100%;
+    }
+} */

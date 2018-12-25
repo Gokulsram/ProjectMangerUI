@@ -1,0 +1,14 @@
+<div class="container mt-3">
+    <h1 class="heading-task">
+        Project Manager
+    </h1>
+    <div class="col mt-3 mb-3 p-0">
+        <a class="task-btn view-task" [routerLink]="['/user']">Add User</a> &nbsp;&nbsp;
+        <a class="task-btn view-task" [routerLink]="['/']">Add Project</a>&nbsp;&nbsp;
+        <a class="task-btn add-task mr-2" [routerLink]="['/addtask']">Add Task</a>&nbsp;&nbsp;
+        <a class="task-btn view-task" [routerLink]="['/viewtask']">View Task</a>
+    </div>
+</div>
+
+
+<router-outlet></router-outlet>
