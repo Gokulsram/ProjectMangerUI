@@ -15,8 +15,8 @@ export class ProjectsComponent implements OnInit {
   projectForm: FormGroup;
   allProjects: IProject[];
   allUsers: IUser[];
-  public searchText: string;
-  public searchUserText: string;
+  searchText: string;
+  searchUserText: string;
   display = 'none';
   buttonCaption: string = "Add";
   managerName: string;
@@ -27,6 +27,11 @@ export class ProjectsComponent implements OnInit {
   userCount: number = 0;
   priority: number;
   paging: number = 1;
+
+  isStartDateAsc = true;
+  isEndDateAsc = true;
+  isPriorityAsc = true;
+  isCompletedAsc = true;
 
   constructor(private formBuilder: FormBuilder,
     private _projectService: ProjectsService,
@@ -80,16 +85,21 @@ export class ProjectsComponent implements OnInit {
       return;
     }
 
-    if (this.projectForm.controls['ProjectId'].value == null || this.projectForm.controls['ProjectId'].value == '')
+    if (this.projectForm.controls['ProjectId'].value == null || this.projectForm.controls['ProjectId'].value == '') {
+      if (this.projectForm.controls['Priority'].value == 0)
+        this.projectForm.controls['Priority'].setValue(null);
       this._projectService.addProject(this.projectForm.value).subscribe(result => {
         this.GetAllProjects();
       });
-    else
+    }
+    else {
+      if (this.projectForm.controls['Priority'].value == 0)
+        this.projectForm.controls['Priority'].setValue(null);
       this._projectService.EditProject(this.projectForm.value).subscribe(
         result => {
           this.GetAllProjects();
         });
-
+    }
     this.Reset();
 
   }
@@ -116,20 +126,56 @@ export class ProjectsComponent implements OnInit {
   SortByProject(strType: string) {
     switch (strType) {
       case "startdate":
-        this.allProjects.sort((a, b) => {
-          return this.getTime(a.StartDate) - this.getTime(b.StartDate);
-        });
+        if (this.isStartDateAsc) {
+          this.allProjects.sort((a, b) => {
+            return this.getTime(a.StartDate) - this.getTime(b.StartDate);
+          });
+          this.isStartDateAsc = false;
+        }
+        else {
+          this.allProjects.sort((a, b) => {
+            return this.getTime(a.StartDate) - this.getTime(b.StartDate);
+          }).reverse();
+          this.isStartDateAsc = true;
+        }
+
         break;
       case "enddate":
-        this.allProjects.sort((a, b) => {
-          return this.getTime(a.EndDate) - this.getTime(b.EndDate);
-        });
+        if (this.isEndDateAsc) {
+          this.allProjects.sort((a, b) => {
+            return this.getTime(a.EndDate) - this.getTime(b.EndDate);
+          });
+          this.isEndDateAsc = false;
+        }
+        else {
+          this.allProjects.sort((a, b) => {
+            return this.getTime(a.EndDate) - this.getTime(b.EndDate);
+          }).reverse();
+          this.isEndDateAsc = true;
+        }
+
         break;
       case "priority":
-        this.allProjects.sort(function (a, b) { return a.Priority - b.Priority });
+        if (this.isPriorityAsc) {
+          this.allProjects.sort(function (a, b) { return a.Priority - b.Priority });
+          this.isPriorityAsc = false;
+        }
+        else {
+          this.allProjects.sort(function (a, b) { return a.Priority - b.Priority }).reverse();
+          this.isPriorityAsc = true;
+        }
+
         break;
       case "completed":
-        this.allProjects.sort(function (a, b) { return a.CompletedTask - b.CompletedTask });
+        if (this.isCompletedAsc) {
+          this.allProjects.sort(function (a, b) { return a.CompletedTask - b.CompletedTask });
+          this.isCompletedAsc = false;
+        }
+        else {
+          this.allProjects.sort(function (a, b) { return a.CompletedTask - b.CompletedTask }).reverse();
+          this.isCompletedAsc = true;
+        }
+
         break;
     }
   }
