@@ -3,44 +3,74 @@
     <div class="col-md-6">
       <form [formGroup]="projectForm">
         <div class="form-group">
-          <label>Project:</label>
-          <input type="text" class="form-control" formControlName="ProjectName" [ngClass]="{'is-invalid': submitted && f.ProjectName.errors}" />
-          <div *ngIf="submitted && f.ProjectName.errors" class="invalid-feedback">
-            <div *ngIf="f.ProjectName.errors.required">>> Project Name is required</div>
+          <div class="row">
+            <div class="col-md-2">
+              <label class="mt-2 mb-0">Project:</label>
+            </div>
+            <div class="pl-0 col-md-10">
+              <input type="text" class="form-control" formControlName="ProjectName" [ngClass]="{'is-invalid': submitted && f.ProjectName.errors}" />
+              <div *ngIf="submitted && f.ProjectName.errors" class="invalid-feedback">
+                <div *ngIf="f.ProjectName.errors.required">>> Project Name is required</div>
+              </div>
+            </div>
           </div>
         </div>
         <div>
-          <input type="checkbox" formControlName="StartDateEndDateChecked" (click)="onCheckChange($event)">&nbsp;&nbsp;Set
-          Start and
-          End Date<br /><br />
-          <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker class="form-control add-file-text"
-            formControlName="StartDate"><br><br>
-          <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker class="form-control add-file-text"
-            formControlName="EndDate" (ngModelChange)="compareTwoDates()">
+          <div class="row">
+            <div class="col-md-4 p-0 offset-2">
+              <input class="mt-2" type="checkbox" formControlName="StartDateEndDateChecked" (click)="onCheckChange($event)">&nbsp;&nbsp;Set
+              Start and End Date
+            </div>
+            <div class="col-md-3">
+              <input type="text" #dp="bsDatepicker" bsDatepicker class="form-control mb-2" formControlName="StartDate">
+            </div>
+            <div class="col-md-3">
+              <input type="text" #dp="bsDatepicker" bsDatepicker class="form-control mb-2" formControlName="EndDate"
+                (ngModelChange)="compareTwoDates()">
+            </div>
 
-          <br><br>
-          <div *ngIf="isLesserEndDate" class="alert alert-danger">
-            End Date cant before start date
+            <div *ngIf="isLesserEndDate" class="alert alert-danger offset-2 mt-3 col-md-9">
+              End Date cant before start date
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+
+        <div class="form-group row mt-3">
+          <div class="col-md-2">
+            <label>Priority</label>
+          </div>
+          <div class="col-md-10 pl-0">
+            0 <input type="range" min="0" max="100" formControlName="Priority" class="cust-priority" (change)="onPriorityChange($event)">
+            {{priority}}
           </div>
         </div>
-        <br>
-        <div class="form-group">
-          <label>Priority</label>
-          0 <input type="range" min="0" max="100" formControlName="Priority" (change)="onPriorityChange($event)">
-          {{priority}}
+
+
+        <div class="form-group row">
+          <div class="col-md-2">
+            <label>Manager</label>
+          </div>
+          <div class="col-md-7">
+            <input type="text" class="form-control mb-2" [(ngModel)]="managerName" [ngModelOptions]="{standalone: true}"
+              disabled />
+            <input type="hidden" formControlName="UserId">
+          </div>
+          <div class="col-md-3 text-right">
+            <button class="btn btn-primary btn-cust" (click)="openModalDialog()">Search</button>
+          </div>
         </div>
-        <br>
-        <div class="form-group">
-          <label>Manager</label><br>
-          <input type="text" class="form-control" [(ngModel)]="managerName" [ngModelOptions]="{standalone: true}"
-            disabled /><br>
-          <input type="hidden" formControlName="UserId">
-          <button class="btn btn-primary" (click)="openModalDialog()">Search</button>
-        </div>
-        <br>
-        <div class="form-group">
-          <button class="btn btn-primary" (click)="onSubmit()">{{buttonCaption}}</button>&nbsp;&nbsp;
-          <button class="btn btn-primary" (click)="Reset()">Reset</button>
+
+        <div class="form-group text-right">
+          <button class="btn btn-success btn-cust" (click)="onSubmit()">{{buttonCaption}}</button>&nbsp;&nbsp;
+          <button class="btn btn-danger btn-cust" (click)="Reset()">Reset</button>
         </div>
       </form>
     </div>
@@ -51,26 +81,45 @@
   <hr />
   <div>
     <input [(ngModel)]="searchText" placeholder="Search.." class="form-control"><br>
-    Sort By: <button class="btn btn-primary" (click)="SortByProject('startdate')">Start Date</button> &nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="SortByProject('enddate')">End Date</button>&nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="SortByProject('priority')">Priority</button>&nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="SortByProject('completed')">Completed</button>&nbsp;&nbsp;
+    Sort By: <button class="btn btn-primary mb-2" (click)="SortByProject('startdate')">Start Date</button> &nbsp;&nbsp;
+    <button class="btn btn-primary mb-2" (click)="SortByProject('enddate')">End Date</button>&nbsp;&nbsp;
+    <button class="btn btn-primary mb-2" (click)="SortByProject('priority')">Priority</button>&nbsp;&nbsp;
+    <button class="btn btn-primary mb-2" (click)="SortByProject('completed')">Completed</button>&nbsp;&nbsp;
   </div>
   <br>
 </div>
 <div class="container">
 
   <ul class="list-group" *ngFor="let user of allProjects | grdFilter: searchText">
-    <li class="list-group-item">
-      <div> Project:
-        <span class="badge">{{user.ProjectName}} </span>
+    <li class="list-group-item mb-3">
+      <div class="row">
+        <div class="col-md-6 row">
+          <div class="col-12"> Project:
+            <span class="badge cust-project-name">{{user.ProjectName}} </span>
+          </div>
+          <div class="col-md-6">
+            No of Tasks: <span class="badge cust-project-name" *ngIf="user.TasksCount>0">{{user.TasksCount}}</span>
+          </div>
+          <div class="col-md-6">
+            Completed: <span class="badge cust-project-name" *ngIf="user.CompletedTask>0">{{user.CompletedTask}}</span>
+          </div>
+          <div class="col-md-6">
+            Start Date: <span class="badge cust-project-name">{{user.StartDate}} </span>
+          </div>
+          <div class="col-md-6">
+            End Date: <span class="badge cust-project-name">{{user.EndDate}}</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div> Priority:
+            <span class="badge cust-project-name">{{user.Priority}}</span>
+          </div>
+        </div>
+        <div class="col-md-3 text-right">
+          <button class="btn btn-danger btn-cust" (click)="DeleteProject(user.ProjectId)">Suspend</button><br>
+          <button class="btn btn-success btn-cust mt-3" (click)="ProjectEdit(user)">Update</button>
+        </div>
       </div>
-      <div> Start Date: <span class="badge">{{user.StartDate}} </span></div>
-      <div> End Date: <span class="badge">{{user.EndDate}}</span> </div>
-      <div> No of Tasks: <span class="badge" *ngIf="user.TasksCount>0">{{user.TasksCount}}</span> </div>
-      <div> Completed: <span class="badge" *ngIf="user.CompletedTask>0">{{user.CompletedTask}}</span> <button class="btn btn-primary"
-          (click)="ProjectEdit(user)">Update</button></div>
-      <div> Priority: <span class="badge">{{user.Priority}}</span> <button class="btn btn-primary" (click)="DeleteProject(user.ProjectId)">Suspend</button></div>
     </li>
   </ul>
 </div>
