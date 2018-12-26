@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   allUsers: IUser[];
   buttonCaption: string = "Add";
   public searchText: string;
-  userCount: number = 0;
+  userCount: number;
 
   constructor(private formBuilder: FormBuilder, private _usersService: UsersService) { }
 
