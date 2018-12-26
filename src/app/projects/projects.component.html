@@ -15,34 +15,29 @@
             </div>
           </div>
         </div>
-        <div>
-          <div class="row">
-            <div class="col-md-4 p-0 offset-2">
-              <input class="mt-2" type="checkbox" formControlName="StartDateEndDateChecked" (click)="onCheckChange($event)">&nbsp;&nbsp;Set
-              Start and End Date
-            </div>
-            <div class="col-md-3">
-              <input type="text" #dp="bsDatepicker" bsDatepicker class="form-control mb-2" formControlName="StartDate">
-            </div>
-            <div class="col-md-3">
-              <input type="text" #dp="bsDatepicker" bsDatepicker class="form-control mb-2" formControlName="EndDate"
-                (ngModelChange)="compareTwoDates()">
-            </div>
 
-            <div *ngIf="isLesserEndDate" class="alert alert-danger offset-2 mt-3 col-md-9">
-              End Date cant before start date
+        <div class="row">
+          <div class="col-md-4 p-0 offset-2">
+            <input class="mt-2" type="checkbox" formControlName="StartDateEndDateChecked" (click)="onCheckChange($event)">&nbsp;&nbsp;Set
+            Start and End Date
+          </div>
+          <div class="col-md-3">
+            <input type="text" #dp="bsDatepicker" bsDatepicker class="form-control mb-2" formControlName="StartDate">
+          </div>
+          <div class="col-md-3">
+            <input type="text" #dp="bsDatepicker" bsDatepicker class="form-control mb-2" formControlName="EndDate"
+              (ngModelChange)="compareTwoDates()">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="pl-0 col-md-10">
+            <div *ngIf="isLesserEndDate" class="datevalidation">
+              <div>>> End Date can't before start date</div>
             </div>
           </div>
-
-
-
-
-
-
-
-
         </div>
-
         <div class="form-group row mt-3">
           <div class="col-md-2">
             <label>Priority</label>
@@ -123,9 +118,13 @@
     </li>
   </ul>
 </div>
-
-<div *ngIf="projectCount==0" style="color: red; font-weight: bold">No Records Found</div>
-
+<div class="container">
+  <div *ngIf="projectCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+    role="alert"> No Records Found!</div>
+  <div *ngIf="(allProjects| grdFilter:searchText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+    role="alert">No
+    Records Found!</div>
+</div>
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
