@@ -14,8 +14,11 @@ export class UsersComponent implements OnInit {
   submitted = false;
   allUsers: IUser[];
   buttonCaption: string = "Add";
-  public searchText: string;
+  searchText: string;
   userCount: number;
+  isFirstNameAsc = true;
+  isLastNameAsc = true;
+  isEmpNameAsc = true;
 
   constructor(private formBuilder: FormBuilder, private _usersService: UsersService) { }
 
@@ -73,13 +76,34 @@ export class UsersComponent implements OnInit {
 
     switch (strType) {
       case "firstname":
-        this.allUsers.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
+        if (this.isFirstNameAsc) {
+          this.allUsers.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
+          this.isFirstNameAsc = false;
+        }
+        else {
+          this.allUsers.sort((a, b) => a.FirstName.localeCompare(b.FirstName)).reverse();
+          this.isFirstNameAsc = true;
+        }
         break;
       case "lastname":
-        this.allUsers.sort((a, b) => a.LastName.localeCompare(b.LastName));
+        if (this.isLastNameAsc) {
+          this.allUsers.sort((a, b) => a.LastName.localeCompare(b.LastName));
+          this.isLastNameAsc = false;
+        }
+        else {
+          this.allUsers.sort((a, b) => a.LastName.localeCompare(b.LastName)).reverse();
+          this.isLastNameAsc = true;
+        }
         break;
       case "employeeid":
-        this.allUsers.sort(function (a, b) { return a.EmployeeId - b.EmployeeId });
+        if (this.isEmpNameAsc) {
+          this.allUsers.sort(function (a, b) { return a.EmployeeId - b.EmployeeId });
+          this.isEmpNameAsc = false;
+        }
+        else {
+          this.allUsers.sort(function (a, b) { return a.EmployeeId - b.EmployeeId }).reverse();
+          this.isEmpNameAsc = true;
+        }
         break;
     }
 
