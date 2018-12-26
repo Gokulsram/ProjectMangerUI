@@ -54,6 +54,7 @@ body{
 .view-task:hover{
     background: #66c7d6;
     text-decoration: none;
+    color: #000;
 }
 .task-outer{
     background: #f5f5f5;
@@ -89,7 +90,7 @@ body{
     line-height: 40px;
 }
 .add-file-text{
-    float: right;
+    /* float: right; */
     width: 65% !important;
 }
 .add-task-outer{
@@ -551,4 +552,133 @@ body{
 
 .my-pagination .ngx-pagination .current {
   background: red;
+}
+.btn-cust{
+  width: 100px;
+}
+.badge-outer-cust .badge{
+  font-size: 14px;
+}
+
+.cust-firstname, .cust-firstname:focus{
+  background: none;
+  border-bottom: 2px solid #dc3545;
+  width: 120px;
+  font-weight: 600;
+  color: #dc3545;
+  box-shadow: none;
+}
+.cust-firstname:hover{
+  border: 1px solid #dc3545;
+  border-bottom: 2px solid #dc3545;
+}
+.cust-lastname, .cust-lastname:focus{
+  background: none;
+  border-bottom: 2px solid #28a745;
+  width: 120px;
+  font-weight: 600;
+  color: #28a745;
+  box-shadow: none;
+}
+.cust-lastname:hover{
+  border: 1px solid #28a745;
+  border-bottom: 2px solid #28a745;
+}
+.cust-idname, .cust-idname:focus{
+  background: none;
+  border-bottom: 2px solid #17a2b8;
+  width: 120px;
+  font-weight: 600;
+  color: #17a2b8;
+  box-shadow: none;
+}
+.cust-idname:hover{
+  border: 1px solid #17a2b8;
+  border-bottom: 2px solid #17a2b8;
+}
+.cust-add-user{
+  background: none;
+  border-bottom: #28a745 2px solid;
+  color: #28a745;
+  font-weight: 600;
+  width: 120px;
+}
+.cust-add-project{
+  background: none;
+  border-bottom: #dc3545 2px solid;
+  color: #dc3545;
+  font-weight: 600;
+  width: 120px;
+}
+.cust-add-task{
+  background: none;
+  border-bottom: #17a2b8 2px solid;
+  color: #17a2b8;
+  font-weight: 600;
+  width: 120px;
+}
+.cust-view-task{
+  background: none;
+  border-bottom: #0062cc 2px solid;
+  color: #0062cc;
+  font-weight: 600;
+  width: 120px;
+}
+.cust-add-user:hover{
+  background: none;
+  border: 1px solid #28a745;
+  border-bottom: #28a745 2px solid;
+  color: #28a745;
+}
+.cust-add-project:hover{
+  background: none;
+  border: 1px solid #dc3545;
+  border-bottom: #dc3545 2px solid;
+  color: #dc3545;
+}
+.cust-add-task:hover{
+  background: none;
+  border: 1px solid #17a2b8;
+  border-bottom: #17a2b8 2px solid;
+  color: #17a2b8;
+}
+.cust-view-task:hover{
+  background: none;
+  border: 1px solid #0062cc;
+  border-bottom: #0062cc 2px solid;
+  color: #0062cc;
+}
+.cust-task:focus{
+  box-shadow: none;
+}
+.cust-add-user-active{
+  background: rgba(82, 191, 107, 0.20);
+  border: 1px solid #28a745;
+  border-bottom: #28a745 2px solid;
+  color: #000000;
+}
+.cust-add-project-active{
+  background: rgba(220, 53, 69, 0.20);
+  border: 1px solid #dc3545;
+  border-bottom: #dc3545 2px solid;
+  color: #000000;
+}
+.cust-add-task-active{
+  background: rgba(23, 162, 184, 0.20);
+  border: 1px solid #17a2b8;
+  border-bottom: #17a2b8 2px solid;
+  color: #000000;
+}
+.cust-view-task-active{
+  background: rgba(0, 98, 204, .20);
+  border: 1px solid #0062cc;
+  border-bottom: #0062cc 2px solid;
+  color: #000000;
+}
+.cust-priority{
+  width: 92%;
+}
+.cust-project-name{
+  font-weight: 600;
+  font-size: 15px;
 }
