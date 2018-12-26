@@ -3,12 +3,11 @@
         Project Manager
     </h1>
     <div class="col mt-3 mb-3 p-0">
-        <a class="task-btn view-task" [routerLink]="['/user']">Add User</a> &nbsp;&nbsp;
-        <a class="task-btn view-task" [routerLink]="['/']">Add Project</a>&nbsp;&nbsp;
-        <a class="task-btn add-task mr-2" [routerLink]="['/addtask']">Add Task</a>&nbsp;&nbsp;
-        <a class="task-btn view-task" [routerLink]="['/viewtask']">View Task</a>
+        <a (click)="AddUser()" [ngClass]="adduserstyle">Add User</a>
+        <a (click)="AddProject()" [ngClass]="addprjectstyle">Add Project</a>
+        <a (click)="AddTask()" [ngClass]="addtaskstyle">Add Task</a>
+        <a (click)="ViewTask()" [ngClass]="viewtaskstyle">View Task</a>
     </div>
 </div>
-
 
 <router-outlet></router-outlet>
