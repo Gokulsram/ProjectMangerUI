@@ -121,9 +121,11 @@
 <div class="container">
   <div *ngIf="projectCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
     role="alert"> No Records Found!</div>
+    <div *ngIf="projectCount>0">
   <div *ngIf="(allProjects| grdFilter:searchText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
     role="alert">No
     Records Found!</div>
+      </div>
 </div>
 
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
