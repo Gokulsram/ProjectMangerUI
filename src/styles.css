@@ -682,3 +682,9 @@ body{
   font-weight: 600;
   font-size: 15px;
 }
+
+.datevalidation
+{
+  font-size: 80%;
+    color: #dc3545;
+}
