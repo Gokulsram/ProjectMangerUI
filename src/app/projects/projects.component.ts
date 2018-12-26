@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
   projectCount: number;
   userCount: number = 0;
   priority: number;
-  paging: number = 1;
+  p: number = 1;
 
   isStartDateAsc = true;
   isEndDateAsc = true;
