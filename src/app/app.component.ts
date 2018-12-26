@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent {
 
+  title = 'Project Management';
+
   constructor(private router: Router) {
     this.DefaultStyle();
     this.adduserstyle = "view-task btn cust-add-user cust-task mr-3 cust-add-user-active";
