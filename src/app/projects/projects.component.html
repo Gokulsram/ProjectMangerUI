@@ -125,6 +125,7 @@
     role="alert">No
     Records Found!</div>
 </div>
+
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
@@ -139,9 +140,9 @@
           Search by User ID,First Name, Last Name & Employee ID
           <hr />
           <div>
-            <input [(ngModel)]="searchUserText" placeholder="Search.." class="form-control"><br>
+            <input [(ngModel)]="searchUserText" placeholder="Search Users.." class="form-control"><br>
           </div>
-          <div style="width: 450px; height: 300px; overflow-y: scroll;">
+          <div style="width: 450px; height: 300px; overflow-y: scroll;" *ngIf="(allUsers| grdFilter:searchUserText).length>0">
             <table class="table table-striped table-responsive-sm table-responsive-md mt-3">
               <thead class="task-head-sec">
                 <tr>
@@ -165,13 +166,18 @@
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="paging = $event" autoHide="true" responsive="true" previousLabel="Previous"
+            <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true" previousLabel="Previous"
               nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
               screenReaderCurrentLabel="You're on page" class="my-pagination"></pagination-controls>
           </div>
+          <div *ngIf="userCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+            role="alert"> No Records Found!</div>
+          <div *ngIf="(allUsers| grdFilter:searchUserText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+            role="alert">No
+            Records Found!</div>
         </div>
       </div>
-      <div *ngIf="userCount==0" style="color: red; font-weight: bold">No Records Found</div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="closeModalDialog()">Close</button>
       </div>
