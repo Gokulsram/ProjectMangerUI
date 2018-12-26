@@ -3,30 +3,52 @@
     <div class="col-md-6">
       <form [formGroup]="registerForm">
         <div class="form-group">
-          <label>First Name:</label>
-          <input type="text" class="form-control" formControlName="FirstName" [ngClass]="{'is-invalid': submitted && f.FirstName.errors}" />
-          <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
-            <div *ngIf="f.FirstName.errors.required">>> First Name is required</div>
+          <div class="row">
+            <div class="col-md-3">
+              <label>First Name:</label>
+
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" formControlName="FirstName" [ngClass]="{'is-invalid': submitted && f.FirstName.errors}" />
+              <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                <div *ngIf="f.FirstName.errors.required">>> First Name is required</div>
+              </div>
+            </div>
           </div>
+
         </div>
         <div class="form-group">
-          <label>Last Name:</label>
-          <input type="text" class="form-control" formControlName="LastName" [ngClass]="{'is-invalid': submitted && f.LastName.errors}" />
-          <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
-            <div *ngIf="f.LastName.errors.required">>> Last Name is required</div>
+          <div class="row">
+            <div class="col-md-3">
+              <label>Last Name:</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" formControlName="LastName" [ngClass]="{'is-invalid': submitted && f.LastName.errors}" />
+              <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+                <div *ngIf="f.LastName.errors.required">>> Last Name is required</div>
+              </div>
+            </div>
           </div>
+
         </div>
         <div class="form-group">
-          <label>Employee ID:</label>
-          <input type="text" class="form-control" (keypress)="numberOnly($event)" formControlName="EmployeeId"
-            [ngClass]="{'is-invalid':submitted && f.EmployeeId.errors}" />
-          <div *ngIf="submitted && f.EmployeeId.errors" class="invalid-feedback">
-            <div *ngIf="f.EmployeeId.errors.required">>> Employee ID is required</div>
+          <div class="row">
+            <div class="col-md-3">
+              <label>Employee ID:</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" class="form-control" (keypress)="numberOnly($event)" formControlName="EmployeeId"
+                [ngClass]="{'is-invalid':submitted && f.EmployeeId.errors}" />
+              <div *ngIf="submitted && f.EmployeeId.errors" class="invalid-feedback">
+                <div *ngIf="f.EmployeeId.errors.required">>> Employee ID is required</div>
+              </div>
+            </div>
           </div>
+
         </div>
-        <div class="form-group">
-          <button class="btn btn-primary" (click)="onSubmit()">{{buttonCaption}}</button>&nbsp;&nbsp;
-          <button class="btn btn-primary" (click)="Reset()">Reset</button>
+        <div class="form-group text-right">
+          <button class="btn btn-success btn-cust mr-3" (click)="onSubmit()">{{buttonCaption}}</button>
+          <button class="btn btn-danger btn-cust" (click)="Reset()">Reset</button>
         </div>
       </form>
     </div>
@@ -35,23 +57,46 @@
 <div class="container" *ngIf="userCount>0">
   <hr />
   <div>
-    <input [(ngModel)]="searchText" placeholder="Search.." class="form-control"><br>
-    Sort : <button class="btn btn-primary" (click)="SortByUser('firstname');">First Name</button> &nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="SortByUser('lastname')">Last Name</button>&nbsp;&nbsp;
-    <button class="btn btn-primary" (click)="SortByUser('employeeid')">Id</button>&nbsp;&nbsp;
+    <div class="row">
+      <div class="col-md-4"> <input [(ngModel)]="searchText" placeholder="Search.." class="form-control"></div>
+      <div class="col-md-6">Sort :
+        <button class="btn mr-3 cust-firstname" (click)="SortByUser('firstname');">First Name</button>
+        <button class="btn mr-3 cust-lastname" (click)="SortByUser('lastname')">Last Name</button>
+        <button class="btn cust-idname" (click)="SortByUser('employeeid')">Id</button>
+      </div>
+    </div>
   </div>
   <br>
 </div>
 
 <div class="container">
+
   <ul class="list-group" *ngFor="let user of allUsers  | grdFilter: searchText">
-    <li class="list-group-item">
-      <div>
-        <span class="badge">{{user.FirstName}} <button class="btn btn-primary" (click)="editUser(user)">Edit</button></span>
+    <li class="list-group-item mt-3">
+      <div class="row">
+        <div class="col-md-6 badge-outer-cust">
+          <span class="badge">{{user.FirstName}}</span>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn btn-cust btn-success" (click)="editUser(user)">Edit</button>
+        </div>
       </div>
-      <div> <span class="badge">{{user.LastName}} <button class="btn btn-primary" (click)="deleteUser(user.UserId)">Delete</button></span></div>
-      <div> <span class="badge">{{user.EmployeeId}}</span> </div>
+      <div class="row mt-3">
+        <div class="col-md-6 badge-outer-cust">
+          <span class="badge">{{user.LastName}} </span>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn btn-danger btn-cust" (click)="deleteUser(user.UserId)">Delete</button>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-6 badge-outer-cust"> <span class="badge">{{user.EmployeeId}}</span> </div>
+      </div>
     </li>
   </ul>
+
 </div>
-<div *ngIf="userCount==0" style="color: red; font-weight: bold">No Records Found</div>
+<div class="container">
+  <div *ngIf="userCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6" role="alert">No
+    Records Found</div>
+</div>
