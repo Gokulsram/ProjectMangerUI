@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit {
   isLesserEndDate: boolean = false;
   checkDisabled: boolean = true;
   submitted = false;
-  projectCount: number = 0;
+  projectCount: number;
   userCount: number = 0;
   priority: number;
   paging: number = 1;
