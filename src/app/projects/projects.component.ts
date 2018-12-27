@@ -13,18 +13,15 @@ import { IUser } from '../Interface/IUsers';
 export class ProjectsComponent implements OnInit {
 
   projectForm: FormGroup;
-  allProjects: IProject[];
-  allUsers: IUser[];
-  searchText: string;
+  allProjects: IProject[] = [];
+  allUsers: IUser[] = [];
+  searchText: string="";
   searchUserText: string;
-  display = 'none';
   buttonCaption: string = "Add";
   managerName: string;
   isLesserEndDate: boolean = false;
   checkDisabled: boolean = true;
   submitted = false;
-  projectCount: number;
-  userCount: number;
   priority: number;
   p: number = 1;
 
@@ -32,6 +29,8 @@ export class ProjectsComponent implements OnInit {
   isEndDateAsc = true;
   isPriorityAsc = true;
   isCompletedAsc = true;
+  isShow = false;
+  isloaded=false;
 
   constructor(private formBuilder: FormBuilder,
     private _projectService: ProjectsService,
@@ -63,12 +62,10 @@ export class ProjectsComponent implements OnInit {
       this.isLesserEndDate = false;
   }
 
-
   private GetAllUsers() {
     this._usersService.getAllUsers().subscribe(
       result => {
         this.allUsers = result;
-        this.userCount = result.length;
       });
   }
 
@@ -90,6 +87,7 @@ export class ProjectsComponent implements OnInit {
         this.projectForm.controls['Priority'].setValue(null);
       this._projectService.addProject(this.projectForm.value).subscribe(result => {
         this.GetAllProjects();
+        this.HideMessage();
       });
     }
     else {
@@ -98,10 +96,18 @@ export class ProjectsComponent implements OnInit {
       this._projectService.EditProject(this.projectForm.value).subscribe(
         result => {
           this.GetAllProjects();
+          this.HideMessage();
         });
     }
     this.Reset();
 
+  }
+
+  HideMessage() {
+    this.isShow = true;
+    setTimeout(() => {
+      this.isShow = false;
+    }, 2000);
   }
 
   Reset() {
@@ -119,7 +125,7 @@ export class ProjectsComponent implements OnInit {
     this._projectService.getAllProjects().subscribe(
       result => {
         this.allProjects = result;
-        this.projectCount = result.length;
+        this.isloaded=true;
       });
   }
 
@@ -130,52 +136,44 @@ export class ProjectsComponent implements OnInit {
           this.allProjects.sort((a, b) => {
             return this.getTime(a.StartDate) - this.getTime(b.StartDate);
           });
-          this.isStartDateAsc = false;
         }
         else {
           this.allProjects.sort((a, b) => {
             return this.getTime(a.StartDate) - this.getTime(b.StartDate);
           }).reverse();
-          this.isStartDateAsc = true;
         }
-
+        this.isStartDateAsc = !this.isStartDateAsc;
         break;
       case "enddate":
         if (this.isEndDateAsc) {
           this.allProjects.sort((a, b) => {
             return this.getTime(a.EndDate) - this.getTime(b.EndDate);
           });
-          this.isEndDateAsc = false;
         }
         else {
           this.allProjects.sort((a, b) => {
             return this.getTime(a.EndDate) - this.getTime(b.EndDate);
           }).reverse();
-          this.isEndDateAsc = true;
         }
-
+        this.isEndDateAsc = !this.isEndDateAsc;
         break;
       case "priority":
         if (this.isPriorityAsc) {
           this.allProjects.sort(function (a, b) { return a.Priority - b.Priority });
-          this.isPriorityAsc = false;
         }
         else {
           this.allProjects.sort(function (a, b) { return a.Priority - b.Priority }).reverse();
-          this.isPriorityAsc = true;
         }
-
+        this.isPriorityAsc = !this.isPriorityAsc;
         break;
       case "completed":
         if (this.isCompletedAsc) {
           this.allProjects.sort(function (a, b) { return a.CompletedTask - b.CompletedTask });
-          this.isCompletedAsc = false;
         }
         else {
           this.allProjects.sort(function (a, b) { return a.CompletedTask - b.CompletedTask }).reverse();
-          this.isCompletedAsc = true;
         }
-
+        this.isCompletedAsc = !this.isCompletedAsc;
         break;
     }
   }
@@ -233,7 +231,6 @@ export class ProjectsComponent implements OnInit {
     return this.projectForm.controls;
   }
 
-
   onCheckChange(event) {
     if (event.target.checked) {
       var endDate = new Date();
@@ -252,19 +249,9 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-  openModalDialog() {
-    this.searchUserText = '';
-    this.display = 'block';
-  }
-
-  closeModalDialog() {
-    this.display = 'none';
-  }
-
   SelectUser(userid, username, lastname) {
     this.managerName = username + " " + lastname;
     this.projectForm.controls['UserId'].setValue(userid);
-    this.display = 'none';
   }
 
   onPriorityChange(e) {
