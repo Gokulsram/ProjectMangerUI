@@ -121,11 +121,11 @@
 <div class="container">
   <div *ngIf="projectCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
     role="alert"> No Records Found!</div>
-    <div *ngIf="projectCount>0">
-  <div *ngIf="(allProjects| grdFilter:searchText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
-    role="alert">No
-    Records Found!</div>
-      </div>
+  <div *ngIf="projectCount>0">
+    <div *ngIf="(allProjects| grdFilter:searchText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+      role="alert">No
+      Records Found!</div>
+  </div>
 </div>
 
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
@@ -172,13 +172,13 @@
               nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
               screenReaderCurrentLabel="You're on page" class="my-pagination"></pagination-controls>
           </div>
-          <div *ngIf="userCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
-            role="alert"> No Records Found!</div>
           <div *ngIf="(allUsers| grdFilter:searchUserText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
             role="alert">No
             Records Found!</div>
         </div>
       </div>
+      <div *ngIf="userCount==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+        role="alert"> No Records Found!</div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="closeModalDialog()">Close</button>
