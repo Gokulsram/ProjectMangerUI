@@ -15,9 +15,13 @@ export class ViewtaskComponent implements OnInit {
   allProjects: IProject[];
   taskCount: number = 0;
   projectCount: number = 0;
-  public searchText: string;
+  searchText: string;
   projectId: number;
   display = 'none';
+  isStartDateAsc = true;
+  isEndDateAsc = true;
+  isPriorityAsc = true;
+  isCompletedAsc = true;
 
   constructor(private _taskService: TaskService,
     private _projectService: ProjectsService) { }
@@ -62,20 +66,55 @@ export class ViewtaskComponent implements OnInit {
 
     switch (strType) {
       case "startdate":
-        this.allTask.sort((a, b) => {
-          return this.getTime(a.StartDate) - this.getTime(b.StartDate);
-        });
+        if (this.isStartDateAsc) {
+          this.allTask.sort((a, b) => {
+            return this.getTime(a.StartDate) - this.getTime(b.StartDate);
+          });
+          this.isStartDateAsc = false;
+        }
+        else {
+          this.allTask.sort((a, b) => {
+            return this.getTime(a.StartDate) - this.getTime(b.StartDate);
+          }).reverse();
+          this.isStartDateAsc = true;
+        }
+
         break;
       case "enddate":
-        this.allTask.sort((a, b) => {
-          return this.getTime(a.EndDate) - this.getTime(b.EndDate);
-        });
+        if (this.isEndDateAsc) {
+          this.allTask.sort((a, b) => {
+            return this.getTime(a.EndDate) - this.getTime(b.EndDate);
+          });
+          this.isEndDateAsc = false;
+        }
+        else {
+          this.allTask.sort((a, b) => {
+            return this.getTime(a.EndDate) - this.getTime(b.EndDate);
+          }).reverse();
+          this.isEndDateAsc = true;
+        }
+
         break;
       case "priority":
-        this.allTask.sort(function (a, b) { return a.Priority - b.Priority });
+        if (this.isPriorityAsc) {
+          this.allTask.sort(function (a, b) { return a.Priority - b.Priority });
+          this.isPriorityAsc = false;
+        }
+        else {
+          this.allTask.sort(function (a, b) { return a.Priority - b.Priority }).reverse();
+          this.isPriorityAsc = true;
+        }
+
         break;
       case "completed":
-        this.allTask.sort((a, b) => a.Status.localeCompare(b.Status));
+        if (this.isCompletedAsc) {
+          this.allTask.sort((a, b) => a.Status.localeCompare(b.Status));
+          this.isCompletedAsc = false;
+        }
+        else {
+          this.allTask.sort((a, b) => a.Status.localeCompare(b.Status)).reverse();
+          this.isCompletedAsc = true;
+        }
         break;
     }
   }
