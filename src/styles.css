@@ -29,6 +29,7 @@ body{
 }
 .task-body-sec td, .task-body-sec th{
     vertical-align: middle;
+    padding: 5px;
 }
 .task-head-sec th{
     border: none;
@@ -652,31 +653,31 @@ body{
   box-shadow: none;
 }
 .cust-add-user-active{
-  background: rgba(82, 191, 107, 0.20);
+  /* background: rgba(82, 191, 107, 0.20); */
   border: 1px solid #28a745;
   border-bottom: #28a745 2px solid;
   color: #000000;
 }
 .cust-add-project-active{
-  background: rgba(220, 53, 69, 0.20);
+  /* background: rgba(220, 53, 69, 0.20); */
   border: 1px solid #dc3545;
   border-bottom: #dc3545 2px solid;
   color: #000000;
 }
 .cust-add-task-active{
-  background: rgba(23, 162, 184, 0.20);
+  /* background: rgba(23, 162, 184, 0.20); */
   border: 1px solid #17a2b8;
   border-bottom: #17a2b8 2px solid;
   color: #000000;
 }
 .cust-view-task-active{
-  background: rgba(0, 98, 204, .20);
+  /* background: rgba(0, 98, 204, .20); */
   border: 1px solid #0062cc;
   border-bottom: #0062cc 2px solid;
   color: #000000;
 }
 .cust-priority{
-  width: 92%;
+  width: 90%;
 }
 .cust-project-name{
   font-weight: 600;
@@ -687,4 +688,34 @@ body{
 {
   font-size: 80%;
     color: #dc3545;
+}
+.modal-open .modal {
+  overflow-y: hidden;
+}
+.cust-dialog{
+  max-width:  650px;
+}
+.cust-dialog .table td, .cust-dialog .table th {
+  padding: initial;
+}
+.cust-table-link{
+background: #0096b9;
+padding: 0 10px;
+margin: 5px;
+color:#fff !important;
+}
+.my-pagination .ngx-pagination li{
+  border: 1px solid #e2d9d9;
+}
+.my-pagination .ngx-pagination{
+  text-align: right;
+}
+.cust-alert{
+  position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    width: 35%;
+    margin: 0 auto;
+    box-shadow: 0 0 8px #d4edda;
 }
