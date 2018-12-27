@@ -20,18 +20,12 @@ import {
 export class AddtaskComponent implements OnInit {
 
   taskForm: FormGroup;
-  allProjects: IProject[];
-  allUsers: IUser[];
-  parentTask: IParentTask[];
-  display = 'none';
-  userDisplay = 'none';
-  ParentTaskDisplay = 'none';
-  public searchText: string;
-  public searchUserText: string;
+  allProjects: IProject[] = [];
+  allUsers: IUser[] = [];
+  parentTask: IParentTask[] = [];
+  searchText: string;
+  searchUserText: string;
   priority: number;
-  projectCount: number = 0;
-  parentCount: number = 0;
-  userCount: number = 0;
   isLesserEndDate: boolean = false;
   isParentTaskEnable: boolean = false;
   submitted = false;
@@ -39,6 +33,7 @@ export class AddtaskComponent implements OnInit {
   isEditMode: boolean = false;
   buttonCaption: string = "Add Task";
   cancelButtonCaption: string = "Reset";
+  p: number = 1;
 
   constructor(private formBuilder: FormBuilder,
     private _projectService: ProjectsService,
@@ -81,9 +76,7 @@ export class AddtaskComponent implements OnInit {
     this.GetProjects();
     this.GetParentTask();
     this.GetAllUsers();
-
   }
-
 
   GetTaskById() {
     this._taskService.getTaskById(this.taskid).subscribe(
@@ -110,7 +103,6 @@ export class AddtaskComponent implements OnInit {
     this._projectService.getAllProjects().subscribe(
       result => {
         this.allProjects = result;
-        this.projectCount = result.length;
       });
   }
 
@@ -118,7 +110,6 @@ export class AddtaskComponent implements OnInit {
     this._taskService.getParentTasks().subscribe(
       result => {
         this.parentTask = result;
-        this.parentCount = result.length;
       });
   }
 
@@ -126,50 +117,22 @@ export class AddtaskComponent implements OnInit {
     this._usersService.getAllUsers().subscribe(
       result => {
         this.allUsers = result;
-        this.userCount = result.length;
       });
-  }
-
-  OpenProjectModal() {
-    this.display = 'block';
-  }
-
-  closeProjectModal() {
-    this.display = 'none';
-  }
-
-  OpenParentTaskModal() {
-    this.ParentTaskDisplay = 'block';
-  }
-
-  closeParentTaskModal() {
-    this.ParentTaskDisplay = 'none';
-  }
-
-  openUserModal() {
-    this.userDisplay = 'block';
-  }
-
-  closeUserModal() {
-    this.userDisplay = 'none';
   }
 
   SelectProject(projectId, projectName) {
     this.taskForm.controls['ProjectId'].setValue(projectId);
     this.taskForm.controls['Project'].setValue(projectName);
-    this.display = 'none';
   }
 
   SelectParentTask(parentTaskId, parentTaskName) {
     this.taskForm.controls['ParentTask'].setValue(parentTaskName);
     this.taskForm.controls['ParentTaskId'].setValue(parentTaskId);
-    this.ParentTaskDisplay = 'none';
   }
 
   SelectUser(userid, username, lastname) {
     this.taskForm.controls['UserId'].setValue(userid);
     this.taskForm.controls['UserName'].setValue(username + " " + lastname);
-    this.userDisplay = 'none';
   }
 
   onParentTaskChange(event) {
@@ -188,7 +151,6 @@ export class AddtaskComponent implements OnInit {
       this.isParentTaskEnable = false;
     }
     else {
-
       this.taskForm.controls['StartDate'].setValue(null);
       this.taskForm.controls['EndDate'].setValue(null);
       this.taskForm.controls['Priority'].setValue(0);
@@ -248,8 +210,7 @@ export class AddtaskComponent implements OnInit {
       }
 
     }
-    else
-    {
+    else {
       this._taskService.EditTask(this.taskForm.value).subscribe();
       this.router.navigate(['/viewtask']);
     }
