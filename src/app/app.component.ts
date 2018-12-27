@@ -23,13 +23,13 @@ export class AppComponent {
   AddUser() {
     this.DefaultStyle();
     this.adduserstyle = "view-task btn cust-add-user cust-task mr-3 cust-add-user-active";
-    this.router.navigate(['/']);
+    this.router.navigate(['/adduser']);
   }
 
   AddProject() {
     this.DefaultStyle();
     this.addprjectstyle = "view-task btn cust-add-project cust-task mr-3 cust-add-project-active";
-    this.router.navigate(['/addproject']);
+    this.router.navigate(['/']);
   }
 
   AddTask() {
