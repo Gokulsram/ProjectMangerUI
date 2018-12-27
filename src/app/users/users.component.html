@@ -1,4 +1,5 @@
 <div class="container">
+  <hr />
   <div class="row">
     <div class="col-md-6">
       <form [formGroup]="registerForm">
@@ -54,7 +55,7 @@
     </div>
   </div>
 </div>
-<div class="container" *ngIf="userCount>0">
+<div class="container" *ngIf="allUsers.length>0">
   <hr />
   <div>
     <div class="row">
@@ -69,7 +70,7 @@
   <br>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="allUsers.length>0">
 
   <ul class="list-group" *ngFor="let user of allUsers  | grdFilter: searchText">
     <li class="list-group-item mt-3">
@@ -97,12 +98,15 @@
 
 </div>
 <div class="container">
-  <div *ngIf="userCount==0" style="color: red; font-weight: bold"
-   class="alert text-center alert-danger col-md-6" role="alert">No
-    Records Found</div>
-   <div *ngIf="userCount>0">
-    <div *ngIf="(allUsers| grdFilter:searchText).length==0" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
-      role="alert">No
-      Records Found!</div>
-     </div>
+  <div *ngIf="(allUsers| grdFilter:searchText).length==0 && isloaded" style="color: red; font-weight: bold" class="alert text-center alert-danger col-md-6"
+    role="alert">No Records Found!</div>
+</div>
+
+<div *ngIf="isShow" class="alert alert-success cust-alert" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Success!</strong> User saved successfully!
+</div>
+<div *ngIf="isDeleted" class="alert alert-danger cust-alert" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  User deleted successfully!
 </div>
