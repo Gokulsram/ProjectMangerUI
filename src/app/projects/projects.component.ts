@@ -24,7 +24,7 @@ export class ProjectsComponent implements OnInit {
   checkDisabled: boolean = true;
   submitted = false;
   projectCount: number;
-  userCount: number = 0;
+  userCount: number;
   priority: number;
   p: number = 1;
 
@@ -253,6 +253,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   openModalDialog() {
+    this.searchUserText = '';
     this.display = 'block';
   }
 
