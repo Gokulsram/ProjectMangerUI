@@ -7,11 +7,11 @@ import { ViewtaskComponent } from './viewtask/viewtask.component';
 
 const routes: Routes = [
 
-  { path: 'addproject', component: ProjectsComponent },
+  { path: '', component: ProjectsComponent },
   { path: 'viewtask', component: ViewtaskComponent },
   { path: 'addtask', component: AddtaskComponent },
   { path: 'addtask/:taskid', component: AddtaskComponent },
-  { path: '', component: UsersComponent }
+  { path: 'adduser', component: UsersComponent }
 ];
 
 @NgModule({
