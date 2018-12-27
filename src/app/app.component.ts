@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor(private router: Router) {
     this.DefaultStyle();
-    this.adduserstyle = "view-task btn cust-add-user cust-task mr-3 cust-add-user-active";
+    this.addprjectstyle = "view-task btn cust-add-project cust-task mr-3 cust-add-project-active";
   }
 
   adduserstyle: string;
