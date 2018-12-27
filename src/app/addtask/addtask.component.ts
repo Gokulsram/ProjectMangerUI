@@ -28,6 +28,7 @@ export class AddtaskComponent implements OnInit {
   priority: number;
   isLesserEndDate: boolean = false;
   isParentTaskEnable: boolean = false;
+  isUserEnable = false;
   submitted = false;
   taskid: number = 0;
   isEditMode: boolean = false;
@@ -64,10 +65,12 @@ export class AddtaskComponent implements OnInit {
 
     if (this.taskid > 0) {
       this.isEditMode = true;
-      this.isParentTaskEnable = true;
+      this.isParentTaskEnable = false;
+      this.isUserEnable =true;
       this.buttonCaption = "Update";
       this.cancelButtonCaption = "Cancel";
       this.GetTaskById();
+      this.taskForm.controls['isParentTask'].disable();
     }
     else {
       this.EnableDisableControls(true);
@@ -149,6 +152,7 @@ export class AddtaskComponent implements OnInit {
       this.taskForm.controls['StartDate'].setValue(new Date());
       this.taskForm.controls['EndDate'].setValue(endDate);
       this.isParentTaskEnable = false;
+      this.isUserEnable=false;
     }
     else {
       this.taskForm.controls['StartDate'].setValue(null);
@@ -159,6 +163,7 @@ export class AddtaskComponent implements OnInit {
       this.taskForm.controls['Priority'].disable();
       this.priority = null;
       this.isParentTaskEnable = true;
+      this.isUserEnable=true;
     }
   }
 
@@ -211,8 +216,12 @@ export class AddtaskComponent implements OnInit {
 
     }
     else {
-      this._taskService.EditTask(this.taskForm.value).subscribe();
-      this.router.navigate(['/viewtask']);
+      this._taskService.EditTask(this.taskForm.value).subscribe(
+        restult => {
+          this.router.navigate(['/viewtask']);
+        }
+      );
+      
     }
   }
 

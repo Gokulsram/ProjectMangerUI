@@ -22,7 +22,9 @@ export class ViewtaskComponent implements OnInit {
   isloaded = false;
 
   constructor(private _taskService: TaskService,
-    private _projectService: ProjectsService) { }
+    private _projectService: ProjectsService) { 
+
+    }
 
   ngOnInit() {
     this.GetAllTask();
@@ -33,6 +35,7 @@ export class ViewtaskComponent implements OnInit {
     this._taskService.getAllTask().subscribe(
       result => {
         this.allTask = result;
+        console.log(result);
       });
   }
 
