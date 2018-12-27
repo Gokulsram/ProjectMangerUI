@@ -11,17 +11,15 @@ import { IProject } from '../Interface/IProject';
 })
 export class ViewtaskComponent implements OnInit {
 
-  allTask: ITask[];
-  allProjects: IProject[];
-  taskCount: number = 0;
-  projectCount: number = 0;
+  allTask: ITask[] = [];
+  allProjects: IProject[] = [];
   searchText: string;
   projectId: number;
-  display = 'none';
   isStartDateAsc = true;
   isEndDateAsc = true;
   isPriorityAsc = true;
   isCompletedAsc = true;
+  isloaded = false;
 
   constructor(private _taskService: TaskService,
     private _projectService: ProjectsService) { }
@@ -35,7 +33,6 @@ export class ViewtaskComponent implements OnInit {
     this._taskService.getAllTask().subscribe(
       result => {
         this.allTask = result;
-        this.taskCount = result.length;
       });
   }
 
@@ -43,24 +40,14 @@ export class ViewtaskComponent implements OnInit {
     this._projectService.getAllProjects().subscribe(
       result => {
         this.allProjects = result;
-        this.projectCount = result.length;
+        this.isloaded = true;
       });
-  }
-
-  OpenProjectModal() {
-    this.display = 'block';
-  }
-
-  closeProjectModal() {
-    this.display = 'none';
   }
 
   SelectProject(projectId, projectName) {
     this.projectId = projectId;
     this.searchText = projectName;
-    this.display = 'none';
   }
-
 
   SortByProject(strType: string) {
 
@@ -70,51 +57,44 @@ export class ViewtaskComponent implements OnInit {
           this.allTask.sort((a, b) => {
             return this.getTime(a.StartDate) - this.getTime(b.StartDate);
           });
-          this.isStartDateAsc = false;
         }
         else {
           this.allTask.sort((a, b) => {
             return this.getTime(a.StartDate) - this.getTime(b.StartDate);
           }).reverse();
-          this.isStartDateAsc = true;
         }
-
+        this.isStartDateAsc = !this.isStartDateAsc;
         break;
       case "enddate":
         if (this.isEndDateAsc) {
           this.allTask.sort((a, b) => {
             return this.getTime(a.EndDate) - this.getTime(b.EndDate);
           });
-          this.isEndDateAsc = false;
         }
         else {
           this.allTask.sort((a, b) => {
             return this.getTime(a.EndDate) - this.getTime(b.EndDate);
           }).reverse();
-          this.isEndDateAsc = true;
         }
-
+        this.isEndDateAsc = !this.isEndDateAsc;
         break;
       case "priority":
         if (this.isPriorityAsc) {
           this.allTask.sort(function (a, b) { return a.Priority - b.Priority });
-          this.isPriorityAsc = false;
         }
         else {
           this.allTask.sort(function (a, b) { return a.Priority - b.Priority }).reverse();
-          this.isPriorityAsc = true;
         }
-
+        this.isPriorityAsc = !this.isPriorityAsc;
         break;
       case "completed":
         if (this.isCompletedAsc) {
           this.allTask.sort((a, b) => a.Status.localeCompare(b.Status));
-          this.isCompletedAsc = false;
         }
         else {
           this.allTask.sort((a, b) => a.Status.localeCompare(b.Status)).reverse();
-          this.isCompletedAsc = true;
         }
+        this.isCompletedAsc = !this.isCompletedAsc;
         break;
     }
   }
