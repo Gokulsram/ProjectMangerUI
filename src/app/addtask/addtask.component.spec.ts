@@ -8,6 +8,7 @@ import { GrdFilterPipe } from '../Filter/grd-filter.pipe';
 import { UsersService } from '../users.service';
 import { ProjectsService } from '../projects.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 describe('AddtaskComponent', () => {
   let component: AddtaskComponent;
@@ -16,7 +17,7 @@ describe('AddtaskComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ReactiveFormsModule, BsDatepickerModule.forRoot(),
-        DatepickerModule.forRoot(), HttpClientModule, RouterTestingModule],
+        DatepickerModule.forRoot(), HttpClientModule, RouterTestingModule, NgxPaginationModule],
       declarations: [AddtaskComponent, GrdFilterPipe],
       providers: [TaskService, UsersService, ProjectsService]
     })
