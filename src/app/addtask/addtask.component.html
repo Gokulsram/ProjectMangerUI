@@ -1,84 +1,132 @@
 <div class="container">
+    <hr />
     <div class="row">
         <div class="col-md-6">
             <form [formGroup]="taskForm">
-                <div class="form-group">
-                    <label>Project</label><br>
-                    <input type="text" class="form-control" disabled='true' formControlName="Project" [ngClass]="{'is-invalid': submitted && f.Project.errors}" />
-                    <div *ngIf="submitted && f.Project.errors" class="invalid-feedback">
-                        <div *ngIf="f.Project.errors.required">>> Project Name is required</div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="mt-2 mb-0">Project : </label>
                     </div>
-                    <button class="btn btn-primary" (click)="OpenProjectModal()" [disabled]="isEditMode" >Search</button>
-                </div>
-                <div class="form-group">
-                    <label>Task:</label>
-                    <input type="text" class="form-control" formControlName="TaskName" [ngClass]="{'is-invalid': submitted && f.TaskName.errors}" />
-                    <div *ngIf="submitted && f.TaskName.errors" class="invalid-feedback">
-                        <div *ngIf="f.TaskName.errors.required">>> Task Name is required</div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" disabled='true' formControlName="Project" [ngClass]="{'is-invalid': submitted && f.Project.errors}" />
+                        <div *ngIf="submitted && f.Project.errors" class="invalid-feedback">
+                            <div *ngIf="f.Project.errors.required">>> Project Name is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <button class="btn btn-primary btn-cust" [disabled]="isEditMode" data-toggle="modal"
+                            data-target="#projectdetails">
+                            <i class="fa fa-search" aria-hidden="true"></i> Search</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="checkbox" formControlName="isParentTask" (click)="onParentTaskChange($event)">&nbsp;&nbsp;Parent
-                    Task
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="mb-0 mt-2">Task : </label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" formControlName="TaskName" [ngClass]="{'is-invalid': submitted && f.TaskName.errors}" />
+                        <div *ngIf="submitted && f.TaskName.errors" class="invalid-feedback">
+                            <div *ngIf="f.TaskName.errors.required">>> Task Name is required</div>
+                        </div>
+                        <p class="mb-0 mt-2"><input type="checkbox" formControlName="isParentTask" (click)="onParentTaskChange($event)">&nbsp;&nbsp;Parent
+                            Task</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Priority</label>
-                    0 <input type="range" min="0" max="100" formControlName="Priority" (change)="onPriorityChange($event)">
-                    {{priority}}
-                </div>
-                <div class="form-group">
-                    <label>Parent Task</label><br>
-                    <input type="text" class="form-control" formControlName="ParentTask" /><br>
-                    <button class="btn btn-primary" (click)="OpenParentTaskModal()" [disabled]="isParentTaskEnable">Search</button>
-                    <input type="hidden" formControlName="ParentTaskId">
-                </div>
-                <div>
 
-                    Start Date <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker class="form-control add-file-text"
-                        formControlName="StartDate"><br><br>
-                    End Date <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker class="form-control add-file-text"
-                        formControlName="EndDate" (ngModelChange)="compareTwoDates()">
-                    <br><br>
-                    <div *ngIf="isLesserEndDate" class="alert alert-danger">
-                        End Date cant before start date
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="mb-0 mt-2">Priority</label>
+                    </div>
+                    <div class="col-md-9">
+                        0 <input type="range" min="0" max="100" class="cust-priority" formControlName="Priority"
+                            (change)="onPriorityChange($event)">
+                        {{priority}}
                     </div>
                 </div>
-                <br>
-                <br>
-                <div class="form-group">
-                    <label>User</label><br>
-                    <input type="text" class="form-control" formControlName="UserName" /><br>
-                    <input type="hidden" formControlName="UserId">
-                    <button class="btn btn-primary" (click)="openUserModal()" [disabled]="isParentTaskEnable">Search</button>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="mb-0 mt-2">Parent Task</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" formControlName="ParentTask" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <button class="btn btn-primary btn-cust" [disabled]="isParentTaskEnable" data-toggle="modal"
+                            data-target="#projecttaskdetails">
+                            <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                        <input type="hidden" formControlName="ParentTaskId">
+                    </div>
                 </div>
-                <br>
-                <div class="form-group">
-                    <button class="btn btn-primary" (click)="onSubmit()">{{buttonCaption}}</button>&nbsp;&nbsp;
-                    <button class="btn btn-primary" (click)="Reset()">{{cancelButtonCaption}}</button>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="mb-0 mt-2">Start Date</label>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker class="form-control"
+                            formControlName="StartDate">
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label class="mb-0 mt-2">End Date</label>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker class="form-control"
+                            formControlName="EndDate" (ngModelChange)="compareTwoDates()">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-6">
+                        <div *ngIf="isLesserEndDate" class="datevalidation">
+                            <div>>> End Date can't before start date</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="mb-0 mt-2">User</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" formControlName="UserName" /><br>
+                        <input type="hidden" formControlName="UserId">
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <button class="btn btn-primary btn-cust" [disabled]="isParentTaskEnable" data-toggle="modal"
+                            data-target="#userdetails">
+                            <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                    </div>
+                </div>
+
+                <div class="form-group text-right">
+                    <button class="btn btn-success btn-cust mr-3" (click)="onSubmit()">{{buttonCaption}}</button>
+                    <button class="btn btn-danger btn-cust" (click)="Reset()">{{cancelButtonCaption}}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<!-- Project Modal -->
 
-<div class="backdrop" [ngStyle]="{'display':display}"></div>
-
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="projectdetails" tabindex="-1" role="dialog" aria-labelledby="projectdetails" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered cust-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Project Details</h4>
-                <button type="button" class="close" aria-label="Close" (click)="closeProjectModal()"><span aria-hidden="true">&times;</span></button>
+            <div class="modal-header p-2 pl-4" style="background: #f3f3f3;">
+                <h4 class="modal-title" id="projectdetails">Project Details</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body" *ngIf="projectCount>0">
+            <div class="modal-body">
                 <div class="container">
                     Search by Project Id, Project Name
                     <hr />
                     <div>
-                        <input [(ngModel)]="searchUserText" placeholder="Search.." class="form-control"><br>
+                        <input [(ngModel)]="searchUserText" placeholder="Search.." class="form-control">
                     </div>
-                    <div style="width: 450px; height: 300px; overflow-y: scroll;">
+                    <div style="height: 300px; overflow-y: scroll;" *ngIf="(allProjects| grdFilter:searchUserText).length>0">
                         <table class="table table-striped table-responsive-sm table-responsive-md mt-3">
                             <thead class="task-head-sec">
                                 <tr>
@@ -91,40 +139,43 @@
                                 <tr *ngFor="let project of allProjects | grdFilter: searchUserText">
                                     <td>{{ project.ProjectId }}</td>
                                     <td>{{ project.ProjectName }}</td>
-                                    <td><button type="button" class="btn btn-default" (click)="SelectProject(project.ProjectId,project.ProjectName)">Select</button></td>
+                                    <td><a class="cust-table-link btn btn-default" (click)="SelectProject(project.ProjectId,project.ProjectName)"
+                                            data-dismiss="modal">Select</a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div *ngIf="(allProjects| grdFilter:searchUserText).length==0" style="color: red; font-weight: bold;margin-top: 22px !important"
+                        class="alert text-center alert-danger col-md-6" role="alert">No Records Found!</div>
                 </div>
             </div>
-            <div *ngIf="projectCount==0" style="color: red; font-weight: bold">No Records Found</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="closeProjectModal()">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+<!-- Parent Task Modal -->
 
-
-<div class="backdrop" [ngStyle]="{'display':ParentTaskDisplay}"></div>
-
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':ParentTaskDisplay}">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="projecttaskdetails" tabindex="-1" role="dialog" aria-labelledby="projectdetails"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered cust-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Parent Task Details</h4>
-                <button type="button" class="close" aria-label="Close" (click)="closeParentTaskModal()"><span
-                        aria-hidden="true">&times;</span></button>
+            <div class="modal-header p-2 pl-4" style="background: #f3f3f3;">
+                <h4 class="modal-title" id="projecttaskdetails">Parent Task Details</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body" *ngIf="parentCount>0">
+            <div class="modal-body">
                 <div class="container">
-                    Search by Parent Task Id, Parent Task Name
+                    Search by Parent Task Id and Parent Task Name
                     <hr />
                     <div>
                         <input [(ngModel)]="searchParentText" placeholder="Search.." class="form-control"><br>
                     </div>
-                    <div style="width: 450px; height: 300px; overflow-y: scroll;">
+                    <div style="height: 300px; overflow-y: scroll;" *ngIf="(parentTask| grdFilter:searchParentText).length>0">
                         <table class="table table-striped table-responsive-sm table-responsive-md mt-3">
                             <thead class="task-head-sec">
                                 <tr>
@@ -137,39 +188,44 @@
                                 <tr *ngFor="let parent of parentTask | grdFilter: searchParentText">
                                     <td>{{ parent.ParentTaskId }}</td>
                                     <td>{{ parent.ParentTask }}</td>
-                                    <td><button type="button" class="btn btn-default" (click)="SelectParentTask(parent.ParentTaskId,parent.ParentTask)">Select</button></td>
+                                    <td><a class="cust-table-link btn btn-default" (click)="SelectParentTask(parent.ParentTaskId,parent.ParentTask)"
+                                            data-dismiss="modal">Select</a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div *ngIf="(parentTask| grdFilter:searchParentText).length==0" style="color: red; font-weight: bold;margin-top: 22px !important"
+                        class="alert text-center alert-danger col-md-6" role="alert">No Records Found!</div>
                 </div>
             </div>
-            <div *ngIf="parentCount==0" style="color: red; font-weight: bold">No Records Found</div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="closeParentTaskModal()">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- User Modal -->
 
-<div class="backdrop" [ngStyle]="{'display':userDisplay}"></div>
-
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':userDisplay}">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="userdetails" tabindex="-1" role="dialog" aria-labelledby="projectdetails" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered cust-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">User Details</h4>
-                <button type="button" class="close" aria-label="Close" (click)="closeUserModal()"><span aria-hidden="true">&times;</span></button>
+            <div class="modal-header p-2 pl-4" style="background: #f3f3f3;">
+                <h4 class="modal-title" id="userdetails">User Details</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body" *ngIf="userCount>0">
+            <div class="modal-body">
                 <div class="container">
                     Search by User ID,First Name, Last Name & Employee ID
                     <hr />
                     <div>
                         <input [(ngModel)]="searchUserText" placeholder="Search.." class="form-control"><br>
                     </div>
-                    <div style="width: 450px; height: 300px; overflow-y: scroll;">
+                    <div style="height: 300px;" *ngIf="(allUsers| grdFilter:searchUserText).length>0">
                         <table class="table table-striped table-responsive-sm table-responsive-md mt-3">
                             <thead class="task-head-sec">
                                 <tr>
@@ -181,23 +237,28 @@
                                 </tr>
                             </thead>
                             <tbody class="task-body-sec">
-                                <tr *ngFor="let user of allUsers                 
-                 | grdFilter: searchUserText                 
-                 ">
+                                <tr *ngFor="let user of allUsers | paginate: { itemsPerPage: 5, currentPage: p }               
+                     | grdFilter: searchUserText">
                                     <td>{{ user.UserId }}</td>
                                     <td>{{ user.FirstName }}</td>
                                     <td>{{ user.LastName }}</td>
                                     <td>{{ user.EmployeeId }}</td>
-                                    <td><button type="button" class="btn btn-default" (click)="SelectUser(user.UserId,user.FirstName,user.LastName)">Select</button></td>
+                                    <td><a class="cust-table-link btn btn-default" (click)="SelectUser(user.UserId,user.FirstName,user.LastName)"
+                                            data-dismiss="modal">Select</a></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true" previousLabel="Previous"
+                            nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                            screenReaderCurrentLabel="You're on page" class="my-pagination"></pagination-controls>
                     </div>
+                    <div *ngIf="(allUsers| grdFilter:searchUserText).length==0" style="color: red; font-weight: bold;margin-top: 22px !important"
+                        class="alert text-center alert-danger col-md-6" role="alert">No
+                        Records Found!</div>
                 </div>
             </div>
-            <div *ngIf="userCount==0" style="color: red; font-weight: bold">No Records Found</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="closeUserModal()">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
