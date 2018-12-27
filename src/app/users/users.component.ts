@@ -12,13 +12,15 @@ export class UsersComponent implements OnInit {
 
   registerForm: FormGroup;
   submitted = false;
-  allUsers: IUser[];
+  allUsers: IUser[] = [];
   buttonCaption: string = "Add";
   searchText: string;
-  userCount: number;
   isFirstNameAsc = true;
   isLastNameAsc = true;
   isEmpNameAsc = true;
+  isShow = false;
+  isDeleted = false;
+  isloaded = false;
 
   constructor(private formBuilder: FormBuilder, private _usersService: UsersService) { }
 
@@ -45,11 +47,13 @@ export class UsersComponent implements OnInit {
     if (this.registerForm.controls['UserId'].value == null || this.registerForm.controls['UserId'].value == '')
       this._usersService.addUser(this.registerForm.value).subscribe(result => {
         this.GetAllUsers();
+        this.HideMessage("save");
       });
     else
       this._usersService.EditUser(this.registerForm.value).subscribe(
         result => {
           this.GetAllUsers();
+          this.HideMessage("save");
         });
 
     this.buttonCaption = "Add";
@@ -68,7 +72,7 @@ export class UsersComponent implements OnInit {
     this._usersService.getAllUsers().subscribe(
       result => {
         this.allUsers = result;
-        this.userCount = result.length;
+        this.isloaded = true;
       });
   }
 
@@ -78,32 +82,29 @@ export class UsersComponent implements OnInit {
       case "firstname":
         if (this.isFirstNameAsc) {
           this.allUsers.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
-          this.isFirstNameAsc = false;
         }
         else {
           this.allUsers.sort((a, b) => a.FirstName.localeCompare(b.FirstName)).reverse();
-          this.isFirstNameAsc = true;
         }
+        this.isFirstNameAsc = !this.isFirstNameAsc;
         break;
       case "lastname":
         if (this.isLastNameAsc) {
           this.allUsers.sort((a, b) => a.LastName.localeCompare(b.LastName));
-          this.isLastNameAsc = false;
         }
         else {
           this.allUsers.sort((a, b) => a.LastName.localeCompare(b.LastName)).reverse();
-          this.isLastNameAsc = true;
         }
+        this.isLastNameAsc = !this.isLastNameAsc;
         break;
       case "employeeid":
         if (this.isEmpNameAsc) {
           this.allUsers.sort(function (a, b) { return a.EmployeeId - b.EmployeeId });
-          this.isEmpNameAsc = false;
         }
         else {
           this.allUsers.sort(function (a, b) { return a.EmployeeId - b.EmployeeId }).reverse();
-          this.isEmpNameAsc = true;
         }
+        this.isEmpNameAsc = !this.isEmpNameAsc;
         break;
     }
 
@@ -126,6 +127,7 @@ export class UsersComponent implements OnInit {
     this._usersService.deleteUser(userid).subscribe(
       result => {
         this.GetAllUsers();
+        this.HideMessage("");
       });
   }
 
@@ -140,6 +142,22 @@ export class UsersComponent implements OnInit {
 
   get f() {
     return this.registerForm.controls;
+  }
+
+  HideMessage(strType: string) {
+    if (strType == "save")
+      this.isShow = true;
+    else {
+      this.isDeleted = true;
+      window.scroll(0, 0);
+    }
+    setTimeout(() => {
+      if (strType == "save")
+        this.isShow = false;
+      else {
+        this.isDeleted = false;
+      }
+    }, 2000);
   }
 
 }
