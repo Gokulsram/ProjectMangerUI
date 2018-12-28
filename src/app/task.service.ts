@@ -8,8 +8,9 @@ import { IParentTask } from './Interface/IParentTask';
 @Injectable()
 export class TaskService {
 
-  baseUrl: string = 'http://localhost:52781/api/';
-
+  // baseUrl: string = 'http://localhost:52781/api/';
+  baseUrl: string = 'http://172.18.4.6/ProjectManagerAPI/api/';
+  
   constructor(private http: HttpClient) { }
 
   getAllTask(): Observable<ITask[]> {

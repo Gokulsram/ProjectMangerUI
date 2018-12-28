@@ -25,6 +25,7 @@ export class AddtaskComponent implements OnInit {
   parentTask: IParentTask[] = [];
   searchText: string;
   searchUserText: string;
+  searchParentText:string;
   priority: number;
   isLesserEndDate: boolean = false;
   isParentTaskEnable: boolean = false;

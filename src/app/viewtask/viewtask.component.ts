@@ -20,7 +20,8 @@ export class ViewtaskComponent implements OnInit {
   isPriorityAsc = true;
   isCompletedAsc = true;
   isloaded = false;
-
+  searchUserText:string;
+  
   constructor(private _taskService: TaskService,
     private _projectService: ProjectsService) { 
 

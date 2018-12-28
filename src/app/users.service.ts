@@ -6,7 +6,8 @@ import { IUser } from './Interface/IUsers';
 @Injectable()
 export class UsersService {
 
-  baseUrl: string = 'http://localhost:52781/api/';
+  //baseUrl: string = 'http://localhost:52781/api/';
+  baseUrl: string = 'http://172.18.4.6/ProjectManagerAPI/api/';
 
   constructor(private http: HttpClient) { }
 
